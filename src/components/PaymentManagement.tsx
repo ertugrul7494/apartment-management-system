@@ -196,56 +196,67 @@ const PaymentManagement: React.FC<PaymentManagementProps> = ({
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 className="text-2xl font-bold text-gray-800">Aidat Yönetimi</h2>
-        <div className="flex flex-wrap gap-2">
-          <input
-            type="month"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            onClick={() => setShowBulkForm(true)}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Toplu Aidat Oluştur
-          </button>
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            Tekil Aidat Ekle
-          </button>
+    <div className="space-y-4 sm:space-y-6 p-2 sm:p-0">
+      {/* Header - Mobil için optimize */}
+      <div className="card">
+        <div className="flex flex-col gap-4">
+          <h2 className="heading-1">💳 Aidat Yönetimi</h2>
+          
+          {/* Ay seçici ve işlem butonları */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1">
+              <label className="block text-small text-gray-600 mb-1 font-medium">📅 Dönem Seçin:</label>
+              <input
+                type="month"
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
+              <button
+                onClick={() => setShowBulkForm(true)}
+                className="btn-success flex items-center justify-center gap-2"
+              >
+                <RefreshCw className="h-5 w-5" />
+                🔄 Toplu Aidat Oluştur
+              </button>
+              <button
+                onClick={() => setShowForm(true)}
+                className="btn-primary flex items-center justify-center gap-2"
+              >
+                <Plus className="h-5 w-5" />
+                ➕ Tekil Aidat Ekle
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Edit Payment Modal */}
+      {/* Edit Payment Modal - Mobil optimize */}
       {editingPayment && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Aidat Düzenle - {editingPayment.apartmentNumber}
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-4 sm:p-6 w-full max-w-md">
+            <h3 className="heading-2 mb-4">
+              ✏️ Aidat Düzenle - 🏠 Daire {editingPayment.apartmentNumber}
             </h3>
             <form onSubmit={handleUpdateEditedPayment} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Aidat Tutarı (₺)
+                <label className="block text-body text-gray-700 mb-2">
+                  💰 Aidat Tutarı (₺)
                 </label>
                 <input
                   type="number"
                   value={editAmount}
                   onChange={(e) => setEditAmount(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="input-field"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Son Ödeme Tarihi
+                <label className="block text-body text-gray-700 mb-2">
+                  📅 Son Ödeme Tarihi
                 </label>
                 <input
                   type="date"

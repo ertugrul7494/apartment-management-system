@@ -548,79 +548,88 @@ function AppContent() {
   const renderContent = () => {
     if (activeTab === 'dashboard') {
       return (
-        <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-md p-6 text-white">
-            <h2 className="text-2xl font-bold mb-2">Apartman Yönetim Sistemi</h2>
-            <p className="text-blue-100">Hoş geldiniz! Sistem başarıyla yüklendi.</p>
-            <div className="mt-4 text-sm">
-              <span className="bg-blue-500 bg-opacity-50 px-2 py-1 rounded">
-                {new Date().toLocaleDateString('tr-TR', { year: 'numeric', month: 'long' })} Dönemi
+        <div className="space-y-4 sm:space-y-6">
+          {/* Ana Header - Mobil için optimize edilmiş */}
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-4 sm:p-6 text-white">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">📱 Apartman Yönetimi</h2>
+            <p className="text-blue-100 text-sm sm:text-base font-medium">Hoş geldiniz! Mobil sistem başarıyla yüklendi.</p>
+            <div className="mt-3 text-xs sm:text-sm">
+              <span className="bg-blue-500 bg-opacity-60 px-3 py-2 rounded-full font-bold">
+                📅 {new Date().toLocaleDateString('tr-TR', { year: 'numeric', month: 'long' })} Dönemi
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg shadow-md p-6">
+          {/* İstatistik Kartları - Mobil için 1x3 grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
+            <div className="card hover:shadow-xl transition-all duration-200 active:scale-95">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm">Toplam Daireler</p>
-                  <p className="text-3xl font-bold text-gray-900">{apartments.length}</p>
+                  <p className="text-small text-gray-600 font-bold">🏠 Toplam Daireler</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900">{apartments.length}</p>
                 </div>
-                <Building className="h-12 w-12 text-blue-600" />
+                <div className="bg-blue-100 rounded-full p-3">
+                  <Building className="h-8 w-8 text-blue-600" />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="card hover:shadow-xl transition-all duration-200 active:scale-95">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm">Bu Ay Ödemeler</p>
-                  <p className="text-3xl font-bold text-green-600">{payments.filter(p => p.month === currentMonth && p.status === 'paid').length}</p>
+                  <p className="text-small text-green-600 font-bold">✅ Bu Ay Ödemeler</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-green-600">{payments.filter(p => p.month === currentMonth && p.status === 'paid').length}</p>
                 </div>
-                <DollarSign className="h-12 w-12 text-green-600" />
+                <div className="bg-green-100 rounded-full p-3">
+                  <DollarSign className="h-8 w-8 text-green-600" />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="card hover:shadow-xl transition-all duration-200 active:scale-95">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm">Bekleyen Ödemeler</p>
-                  <p className="text-3xl font-bold text-red-600">{payments.filter(p => p.month === currentMonth && p.status !== 'paid').length}</p>
+                  <p className="text-small text-red-600 font-bold">⏳ Bekleyen Ödemeler</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-red-600">{payments.filter(p => p.month === currentMonth && p.status !== 'paid').length}</p>
                 </div>
-                <MessageCircle className="h-12 w-12 text-red-600" />
+                <div className="bg-red-100 rounded-full p-3">
+                  <MessageCircle className="h-8 w-8 text-red-600" />
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold mb-4">Hızlı İşlemler</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Hızlı İşlemler - Mobil için 2x2 grid */}
+          <div className="card">
+            <h3 className="heading-2 mb-4">⚡ Hızlı İşlemler</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               <button 
                 onClick={() => setActiveTab('apartments')}
-                className="bg-blue-50 hover:bg-blue-100 text-blue-700 p-4 rounded-lg transition-colors"
+                className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-4 sm:p-6 rounded-xl transition-all duration-200 active:scale-95 flex flex-col items-center"
               >
-                <Building className="h-6 w-6 mx-auto mb-2" />
-                <span className="text-sm">Daire Ekle</span>
+                <Building className="h-8 w-8 mx-auto mb-2" />
+                <span className="text-sm sm:text-base font-bold">🏠 Daire Ekle</span>
               </button>
               <button 
                 onClick={() => setActiveTab('payments')}
-                className="bg-green-50 hover:bg-green-100 text-green-700 p-4 rounded-lg transition-colors"
+                className="bg-green-100 hover:bg-green-200 text-green-700 p-4 sm:p-6 rounded-xl transition-all duration-200 active:scale-95 flex flex-col items-center"
               >
-                <DollarSign className="h-6 w-6 mx-auto mb-2" />
-                <span className="text-sm">Ödeme Ekle</span>
+                <DollarSign className="h-8 w-8 mx-auto mb-2" />
+                <span className="text-sm sm:text-base font-bold">💳 Ödeme Ekle</span>
               </button>
               <button 
                 onClick={() => setActiveTab('reports')}
-                className="bg-purple-50 hover:bg-purple-100 text-purple-700 p-4 rounded-lg transition-colors"
+                className="bg-purple-100 hover:bg-purple-200 text-purple-700 p-4 sm:p-6 rounded-xl transition-all duration-200 active:scale-95 flex flex-col items-center"
               >
-                <BarChart className="h-6 w-6 mx-auto mb-2" />
-                <span className="text-sm">Raporlar</span>
+                <BarChart className="h-8 w-8 mx-auto mb-2" />
+                <span className="text-sm sm:text-base font-bold">📊 Raporlar</span>
               </button>
               <button 
                 onClick={() => setActiveTab('whatsapp')}
-                className="bg-yellow-50 hover:bg-yellow-100 text-yellow-700 p-4 rounded-lg transition-colors"
+                className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 p-4 sm:p-6 rounded-xl transition-all duration-200 active:scale-95 flex flex-col items-center"
               >
-                <MessageCircle className="h-6 w-6 mx-auto mb-2" />
-                <span className="text-sm">Mesajlar</span>
+                <MessageCircle className="h-8 w-8 mx-auto mb-2" />
+                <span className="text-sm sm:text-base font-bold">💬 Mesajlar</span>
               </button>
             </div>
           </div>
@@ -677,22 +686,22 @@ function AppContent() {
       {/* Header with logout */}
       <Header />
       
-      {/* Mobile menu button */}
+      {/* Mobile menu button - daha büyük ve belirgin */}
       <div className="lg:hidden fixed top-20 left-4 z-50">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="bg-white p-2 rounded-lg shadow-md"
+          className="bg-blue-600 text-white p-3 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 active:scale-95"
         >
           {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 pt-16`}>
-        <div className="p-6">
-          <div className="flex items-center mb-8">
+      {/* Sidebar - mobil için optimize edilmiş */}
+      <div className={`fixed inset-y-0 left-0 z-40 w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 pt-16`}>
+        <div className="p-4 sm:p-6">
+          <div className="flex items-center mb-6 p-3 bg-blue-50 rounded-xl">
             <Building className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-xl font-bold text-gray-800">Apartman Yönetimi</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-gray-800">🏢 Apartman Yönetimi</h1>
           </div>
           
           <nav className="space-y-2">
@@ -705,13 +714,13 @@ function AppContent() {
                     setActiveTab(item.id);
                     setSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${
+                  className={`w-full flex items-center px-4 py-4 text-left rounded-xl transition-all duration-200 font-medium text-base ${
                     activeTab === item.id
-                      ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                      : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700 active:scale-95'
                   }`}
                 >
-                  <Icon className="h-5 w-5 mr-3" />
+                  <Icon className="h-6 w-6 mr-4" />
                   {item.label}
                 </button>
               );
@@ -720,17 +729,17 @@ function AppContent() {
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="lg:ml-64 pt-16">
-        <div className="p-6">
+      {/* Main content - mobil için optimize edilmiş */}
+      <div className="lg:ml-72 pt-16">
+        <div className="p-3 sm:p-6">
           {renderContent()}
         </div>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Overlay for mobile - daha koyu */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-60 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
